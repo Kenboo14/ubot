@@ -91,6 +91,14 @@ Perintah:
 Penjelasan:
            Untuk merubah sticker menjadi kecil</b>
 """,
+    f"""
+<b>HELP LIMIT
+
+Perintah:
+        <code>{PREFIXES[0]}limit</code>
+Penjelasan:
+        Check Limit telegram from @SpamBot.</b>
+""",
 ]
 
 help_text = {
@@ -101,6 +109,7 @@ help_text = {
     "memes": help_sticker[2],
     "quotly": help_sticker[3],
     "tiny": help_sticker[4],
+    "limit": help_sticker[5],
 }
 
 
@@ -134,6 +143,7 @@ async def _(client, inline_query):
         ],
         [
             InlineKeyboardButton("TINY", callback_data="sticker sticker_tiny"),
+            InlineKeyboardButton("LIMIT", callback_data="sticker limit"),
         ],
     ]
     msg = "<b>HELP MENU OPEN\nPREFIXES: <code>. , : ; !</code></b>"
@@ -194,6 +204,7 @@ async def _(client, callback_query):
                         InlineKeyboardButton(
                             "TINY", callback_data="sticker sticker_tiny"
                         ),
+                        InlineKeyboardButton("LIMIT", callback_data="sticker limit"),
                     ],
                 ]
                 msg = "<b>HELP MENU OPEN\nPREFIXES: <code>. , : ; !</code></b>"
@@ -224,6 +235,8 @@ async def _(client, callback_query):
                 msg = help_sticker[3]
             if data == "sticker_tiny":
                 msg = help_sticker[4]
+            if data== "limit":
+                msg = help_sticker[5]
             if data == "sticker_back":
                 button = [
                     [
@@ -254,6 +267,7 @@ async def _(client, callback_query):
                         InlineKeyboardButton(
                             "TINY", callback_data="sticker sticker_tiny"
                         ),
+                        InlineKeyboardButton("LIMIT", callback_data="sticker limit"),
                     ],
                 ]
                 msg = "<b>HELP MENU OPEN\nPREFIXES: <code>. , : ; !</code></b>"
