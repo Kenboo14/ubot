@@ -91,14 +91,40 @@ Perintah:
 Penjelasan:
            Untuk merubah sticker menjadi kecil</b>
 """,
-    f"""
-<b>HELP LIMIT
+    f"""<b>HELP LIMIT
 
 Perintah:
-        <code>{PREFIXES[0]}limit</code>
+         <code>{PREFIXES[0]}limit</code> [ketik aja limit]
 Penjelasan:
-        Check Limit telegram from @SpamBot.</b>
-""",
+         Gaperlu gw jelasin lupasati udhbtau ini fungsi apa</b>
+    """,
+    f"""<b>HELP PLAY
+
+Perintah:
+          <code>{PREFIXES[0]}play</code> [Tambahkan Judul Lagu]
+Penjelasan: Silahkan ketik .play judullagu</b>
+    """,
+     f"""<b>HELP MENU
+            INI MENU LANJUTAN</b>
+        """,
+]
+
+help_next = [
+        f"""<b>HELP BC
+            INI MENU LANJUTAN</b>
+        """,
+    f"""<b>HELP BROADCAST
+    Perintah: 
+            <code>{PREFIXES[0]}gcast</code> [reply text]
+    Penjelasan: ini menu broadcast/gcast silahkan ketik .gcast + replychat</b>
+        """,
+    f"""<b>HELP SANGMATA
+    Perintah: 
+            <code>{PREFIXES[0]}sg</code> [id/username]
+    Penjelasan: ini menu Sang Mata silahkan ketik .sg + id/username</b>
+        """,f"""<b>HELP ANBU
+            INI MENU SANG MATA</b>
+        """,
 ]
 
 help_text = {
@@ -110,6 +136,12 @@ help_text = {
     "quotly": help_sticker[3],
     "tiny": help_sticker[4],
     "limit": help_sticker[5],
+    "play": help_sticker[6],
+    "next": help_sticker[7],
+    "next": help_next[0],
+    "gcast": help_next[1],
+    "sg": help_next[2],
+ 
 }
 
 
@@ -130,23 +162,27 @@ async def _(client, message):
 async def _(client, inline_query):
     button = [
         [
-            InlineKeyboardButton("GLOBAL", callback_data="admin admin_gban"),
-            InlineKeyboardButton("KANG", callback_data="sticker sticker_kang"),
+            InlineKeyboardButton("Global", callback_data="admin admin_gban"),
+            InlineKeyboardButton("Kang", callback_data="sticker sticker_kang"),
         ],
         [
-            InlineKeyboardButton("MEMIFY", callback_data="sticker sticker_memify"),
-            InlineKeyboardButton("MAMES", callback_data="sticker sticker_memes"),
+            InlineKeyboardButton("Memify", callback_data="sticker sticker_memify"),
+            InlineKeyboardButton("Mames", callback_data="sticker sticker_memes"),
         ],
         [
-            InlineKeyboardButton("QUOTLY", callback_data="sticker sticker_quotly"),
-            InlineKeyboardButton("RESTRICT", callback_data="admin admin_restrict"),
+            InlineKeyboardButton("Quotly", callback_data="sticker sticker_quotly"),
+            InlineKeyboardButton("Admin", callback_data="admin admin_restrict"),
         ],
         [
-            InlineKeyboardButton("TINY", callback_data="sticker sticker_tiny"),
-            InlineKeyboardButton("LIMIT", callback_data="sticker limit"),
+            InlineKeyboardButton("Tiny", callback_data="sticker sticker_tiny"),
+            InlineKeyboardButton("Limit", callback_data="sticker limit"),
+        ],       
+        [
+            InlineKeyboardButton("Play", callback_data="sticker play"),
+            InlineKeyboardButton(">>", callback_data="next next"),
         ],
     ]
-    msg = "<b>HELP MENU OPEN\nPREFIXES: <code>. , : ; !</code></b>"
+    msg = "<b>HELP MENU\nSUPPORT BY\nSEEKUT CORP:\n<code>. , : ; !</code></b>"
     await client.answer_inline_query(
         inline_query.id,
         cache_time=0,
@@ -178,36 +214,46 @@ async def _(client, callback_query):
                 button = [
                     [
                         InlineKeyboardButton(
-                            "GLOBAL", callback_data="admin admin_gban"
+                            "Global", callback_data="admin admin_gban"
                         ),
                         InlineKeyboardButton(
-                            "KANG", callback_data="sticker sticker_kang"
+                            "Kang", callback_data="sticker sticker_kang"
                         ),
                     ],
                     [
                         InlineKeyboardButton(
-                            "MEMIFY", callback_data="sticker sticker_memify"
+                            "Memify", callback_data="sticker sticker_memify"
                         ),
                         InlineKeyboardButton(
-                            "MAMES", callback_data="sticker sticker_memes"
+                            "Mames", callback_data="sticker sticker_memes"
                         ),
                     ],
                     [
                         InlineKeyboardButton(
-                            "QUOTLY", callback_data="sticker sticker_quotly"
+                            "Quotly", callback_data="sticker sticker_quotly"
                         ),
                         InlineKeyboardButton(
-                            "RESTRICT", callback_data="admin admin_restrict"
+                            "Admin", callback_data="admin admin_restrict"
                         ),
                     ],
                     [
                         InlineKeyboardButton(
-                            "TINY", callback_data="sticker sticker_tiny"
+                            "Tiny", callback_data="sticker sticker_tiny"
                         ),
-                        InlineKeyboardButton("LIMIT", callback_data="sticker limit"),
+                        InlineKeyboardButton(
+                            "Limit", callback_data="sticker limit"
+                        ),
+                    ],                                                    
+                    [
+                         InlineKeyboardButton(
+                            "Play", callback_data="sticker play"
+                        ),
+                        InlineKeyboardButton(
+                            ">>", callback_data="next next"
+                        ),
                     ],
                 ]
-                msg = "<b>HELP MENU OPEN\nPREFIXES: <code>. , : ; !</code></b>"
+                msg = "<b>HELP MENU\nSUPPORT BY SEEKUT CORP: <code>. , : ; !</code></b>"
             await callback_query.edit_message_text(
                 msg, reply_markup=InlineKeyboardMarkup(button)
             )
@@ -235,42 +281,216 @@ async def _(client, callback_query):
                 msg = help_sticker[3]
             if data == "sticker_tiny":
                 msg = help_sticker[4]
-            if data== "limit":
+            if data == "limit":
                 msg = help_sticker[5]
+            if data == "play":
+                msg = help_sticker[6]
+            if data == "next":
+                msg = help_sticker[7]
             if data == "sticker_back":
                 button = [
                     [
                         InlineKeyboardButton(
-                            "GLOBAL", callback_data="admin admin_gban"
+                            "Global", callback_data="admin admin_gban"
                         ),
                         InlineKeyboardButton(
-                            "KANG", callback_data="sticker sticker_kang"
+                            "Kang", callback_data="sticker sticker_kang"
                         ),
                     ],
                     [
                         InlineKeyboardButton(
-                            "MEMIFY", callback_data="sticker sticker_memify"
+                            "Memify", callback_data="sticker sticker_memify"
                         ),
                         InlineKeyboardButton(
-                            "MAMES", callback_data="sticker sticker_memes"
+                            "Mames", callback_data="sticker sticker_memes"
                         ),
                     ],
                     [
                         InlineKeyboardButton(
-                            "QUOTLY", callback_data="sticker sticker_quotly"
+                            "Quotly", callback_data="sticker sticker_quotly"
                         ),
                         InlineKeyboardButton(
-                            "RESTRICT", callback_data="admin admin_restrict"
+                            "Admin", callback_data="admin admin_restrict"
                         ),
                     ],
                     [
                         InlineKeyboardButton(
-                            "TINY", callback_data="sticker sticker_tiny"
+                            "Tiny", callback_data="sticker sticker_tiny"
                         ),
-                        InlineKeyboardButton("LIMIT", callback_data="sticker limit"),
+                        InlineKeyboardButton(
+                            "Limit", callback_data="sticker limit"
+                        ),      
+                    ],                    
+                    [                       
+                         InlineKeyboardButton(
+                            "Play", callback_data="sticker play"
+                        ),
+                        InlineKeyboardButton(
+                            ">>", callback_data="next next"
+                        ),
                     ],
                 ]
-                msg = "<b>HELP MENU OPEN\nPREFIXES: <code>. , : ; !</code></b>"
+                msg = "<b>HELP MENU\nSUPPORT BY\nSEEKUT CORP:\n<code>. , : ; !</code></b>"
             await callback_query.edit_message_text(
                 msg, reply_markup=InlineKeyboardMarkup(button)
             )
+            
+@bot.on_callback_query(filters.regex("^next"))
+async def _(client, callback_query):
+    for my in ubot._ubot:
+        if callback_query.from_user.id == my.me.id:
+            data = callback_query.data.split()[1]
+            button = [
+                [InlineKeyboardButton("• KEMBALI •", callback_data="next next_back")]
+            ]
+            if data == "next":
+                button = [
+                    [
+                        InlineKeyboardButton(
+                            "Broadcast", callback_data="next gcast"
+                        ),
+                        InlineKeyboardButton(
+                            "SangMata", callback_data="next sg"
+                        ),
+                    ],
+                    [                                          
+                        InlineKeyboardButton(
+                            "<<", callback_data="next next_back"
+                        ),
+                    ],
+                    
+                ]
+            msg = "<b>HELP MENU\nSUPPORT BY SEEKUT CORP: <code>. , : ; !</code></b>"
+            if data == "gcast":
+                msg = help_next[1]
+            if data == "sg":
+                msg = help_next[2]
+            if data == "next_back":
+                button = [
+                    [
+                        InlineKeyboardButton(
+                            "Global", callback_data="admin admin_gban"
+                        ),
+                        InlineKeyboardButton(
+                            "Kang", callback_data="sticker sticker_kang"
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "Memify", callback_data="sticker sticker_memify"
+                        ),
+                        InlineKeyboardButton(
+                            "Mames", callback_data="sticker sticker_memes"
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "Quotly", callback_data="sticker sticker_quotly"
+                        ),
+                        InlineKeyboardButton(
+                            "Admin", callback_data="admin admin_restrict"
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "Tiny", callback_data="sticker sticker_tiny"
+                        ),
+                        InlineKeyboardButton(
+                            "Limit", callback_data="sticker limit"
+                        ),
+                    ],                                     
+                    [                       
+                         InlineKeyboardButton(
+                            "Play", callback_data="sticker play"
+                        ),
+                        InlineKeyboardButton(
+                            ">>", callback_data="next next"
+                        ),
+                    ],
+                ]
+                msg = "<b>HELP MENU\nSUPPORT BY\nSEEKUT CORP:\n<code>. , : ; !</code></b>"
+            await callback_query.edit_message_text(
+                msg, reply_markup=InlineKeyboardMarkup(button)
+              
+            )
+
+getpay_payment = [
+    f"""<b>INI DANA
+    081394369076 A/N MUC* AG AL*
+    </b>
+
+    """,
+    f"""<b>INI BCA
+    0882410445 A/N MUC* AG AL*
+    </b>
+    """,
+]
+
+getpay_text = {
+    "paymont": getpay_payment[0],
+    "payment": getpay_payment[1],
+}
+        
+@ubot.on_message(filters.command("getpay", PREFIXES) & filters.me)
+async def _(client, message):
+
+    if len(message.command) < 2:
+        x = await client.get_inline_bot_results(bot.me.username, "user_getpay_command")
+        try:
+            return await message.reply_inline_bot_result(x.query_id, x.results[0].id)
+        except Exception as error:
+            return await message.reply(error)
+    else:
+        if message.command[1] in getpay_text:
+            return await message.reply(getpay_text[message.command[1]])
+
+
+@bot.on_inline_query(filters.regex("^user_getpay_command"))
+async def _(client, inline_query):
+    button = [
+        [
+            InlineKeyboardButton("DANA", callback_data="payment paymont"),
+            InlineKeyboardButton("BCA", callback_data="payment payment"),
+        ],
+     ]
+    msg = "<b>HELP MENU\nSUPPORT BY\nSEEKUT CORP:\n<code>. , : ; !</code></b>"
+    await client.answer_inline_query(
+        inline_query.id,
+        cache_time=0,
+        results=[
+            (
+                InlineQueryResultArticle(
+                    title="Help Menu!",
+                    reply_markup=InlineKeyboardMarkup(button),
+                    input_message_content=InputTextMessageContent(msg),
+                )
+            )
+        ],
+    )
+@bot.on_callback_query(filters.regex("^payment"))
+async def _(client, callback_query):
+    for my in ubot._ubot:
+        if callback_query.from_user.id == my.me.id:
+            data = callback_query.data.split()[1]
+            button = [
+                [
+                    InlineKeyboardButton(
+                        "• KEMBALI •", callback_data="payment payment_back"
+                    )
+                ]
+            ]
+            if data == "paymont":
+                msg = getpay_payment[0]
+            if data == "payment":
+                msg = getpay_payment[1]
+            if data == "payment_back":
+                button = [
+                    [
+                        InlineKeyboardButton("DANA", callback_data="payment paymont"),
+                        InlineKeyboardButton("BCA", callback_data="payment payment"),
+                    ],
+                ]
+            msg = "<b>HELP MENU\nSUPPORT BY\nSEEKUT CORP:\n<code>. , : ; !</code></b>"
+        await callback_query.edit_message_text(
+            msg, reply_markup=InlineKeyboardMarkup(button)
+        )
