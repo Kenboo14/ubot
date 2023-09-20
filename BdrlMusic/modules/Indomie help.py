@@ -136,9 +136,8 @@ help_text = {
     "quotly": help_sticker[3],
     "tiny": help_sticker[4],
     "limit": help_sticker[5],
-    "play": help_sticker[6],
-    "next": help_sticker[7],
-    "next": help_next[0],
+    "lanjut": help_sticker[6],
+    "lanjut": help_next[0],
     "gcast": help_next[1],
     "sg": help_next[2],
  
@@ -178,8 +177,7 @@ async def _(client, inline_query):
             InlineKeyboardButton("Limit", callback_data="sticker limit"),
         ],       
         [
-            InlineKeyboardButton("Play", callback_data="sticker play"),
-            InlineKeyboardButton(">>", callback_data="next next"),
+            InlineKeyboardButton(">>", callback_data="lanjut lanjut"),
         ],
     ]
     msg = "<b>HELP MENU\nSUPPORT BY\nSEEKUT CORP:\n<code>. , : ; !</code></b>"
@@ -245,11 +243,8 @@ async def _(client, callback_query):
                         ),
                     ],                                                    
                     [
-                         InlineKeyboardButton(
-                            "Play", callback_data="sticker play"
-                        ),
                         InlineKeyboardButton(
-                            ">>", callback_data="next next"
+                            ">>", callback_data="lanjut lanjut"
                         ),
                     ],
                 ]
@@ -322,11 +317,8 @@ async def _(client, callback_query):
                         ),      
                     ],                    
                     [                       
-                         InlineKeyboardButton(
-                            "Play", callback_data="sticker play"
-                        ),
                         InlineKeyboardButton(
-                            ">>", callback_data="next next"
+                            ">>", callback_data="lanjut lanjut"
                         ),
                     ],
                 ]
@@ -335,15 +327,15 @@ async def _(client, callback_query):
                 msg, reply_markup=InlineKeyboardMarkup(button)
             )
             
-@bot.on_callback_query(filters.regex("^next"))
+@bot.on_callback_query(filters.regex("^lanjut"))
 async def _(client, callback_query):
     for my in ubot._ubot:
         if callback_query.from_user.id == my.me.id:
             data = callback_query.data.split()[1]
             button = [
-                [InlineKeyboardButton("• KEMBALI •", callback_data="next next_back")]
+                [InlineKeyboardButton("• KEMBALI •", callback_data="lanjut lanjut_back")]
             ]
-            if data == "next":
+            if data == "lanjut":
                 button = [
                     [
                         InlineKeyboardButton(
@@ -360,12 +352,12 @@ async def _(client, callback_query):
                     ],
                     
                 ]
-            msg = "<b>HELP MENU\nSUPPORT BY SEEKUT CORP: <code>. , : ; !</code></b>"
+            msg = "<b>HELP MENU\nSUPPORT BY\nSEEKUT CORP:\n <code>. , : ; !</code></b>"
             if data == "gcast":
                 msg = help_next[1]
             if data == "sg":
                 msg = help_next[2]
-            if data == "next_back":
+            if data == "lanjut_back":
                 button = [
                     [
                         InlineKeyboardButton(
@@ -400,11 +392,8 @@ async def _(client, callback_query):
                         ),
                     ],                                     
                     [                       
-                         InlineKeyboardButton(
-                            "Play", callback_data="sticker play"
-                        ),
                         InlineKeyboardButton(
-                            ">>", callback_data="next next"
+                            ">>", callback_data="lanjut lanjut"
                         ),
                     ],
                 ]
