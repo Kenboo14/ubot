@@ -57,7 +57,7 @@ def YouTube_Search(query):
 
 @bot.on_message(filters.command("start") & filters.private)
 async def start(client, message):
-    await message.reply_text("Testing Userbot")
+    await message.reply_text("✅")
 
 
 @ubot.on_message(filters.user(OWNER_ID) & filters.command("cping", PREFIXES))
