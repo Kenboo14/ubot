@@ -65,7 +65,7 @@ async def start(client, message):
 async def _(client, message: Message):
     start = time()
     delta_ping = time() - start
-    await message.reply(f"<b>Pong!</b>\n<code>{delta_ping * 1000:.3f}ms</code>")
+    await message.reply(f"<b>⏱️Pong!</b>\n<code>{delta_ping * 1000:.3f}ms</code>")
 
 
 @bot.on_message(filters.command("start", PREFIXES) & filters.private, group=2)
